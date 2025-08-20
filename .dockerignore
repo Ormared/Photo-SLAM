@@ -1,0 +1,52 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.so
+*.a
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker files
+Dockerfile
+Dockerfile.dev
+docker-compose.yml
+.dockerignore
+
+# Data and results (these should be mounted as volumes)
+data/*
+results/*
+*.bag
+*.ply
+*.png
+*.jpg
+*.jpeg
+
+
+# Logs
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Build directories
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+

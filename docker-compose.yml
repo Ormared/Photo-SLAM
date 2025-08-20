@@ -1,0 +1,42 @@
+services:
+  photo-slam:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: photo-slam-dev
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - DISPLAY=${DISPLAY:-:0}
+      - XAUTHORITY=${XAUTHORITY}
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_INDIRECT=1
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - MESA_GL_VERSION_OVERRIDE=3.3
+      - MESA_GLSL_VERSION_OVERRIDE=330
+      - GALLIUM_DRIVER=llvmpipe  
+    volumes:
+      # Mount the current directory (Photo-SLAM source) to /workspace
+      - .:/workspace
+      # X11 forwarding for GUI applications (optional)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # OpenGL and GPU access
+      - /dev/dri:/dev/dri:rw
+      - /usr/share/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d:ro
+      # Mount for persistent data/results
+      - ./results:/workspace/results
+      - ./data:/workspace/data
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    network_mode: host
+    # GPU access
+    gpus: all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
