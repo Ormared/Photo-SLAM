@@ -1,0 +1,7 @@
+# Requirements for Replica dataset to ROS2 bag conversion script
+# Install with: pip install -r requirements_rosbag_conversion.txt
+
+rosbags>=0.9.11
+opencv-python>=4.7.0
+numpy>=1.21.0
+pyyaml>=6.0

@@ -55,12 +55,7 @@ cd /workspace
 ```
 
 ```bash
-./bin/replica_rgbd \
-    ./ORB-SLAM3/Vocabulary/ORBvoc.txt \
-    ./cfg/ORB_SLAM3/RGB-D/Replica/office0.yaml \
-    ./cfg/gaussian_mapper/RGB-D/Replica/replica_rgbd.yaml \
-    ./data/Replica/office0 \
-    ./results
+./bin/replica_rgbd ./ORB-SLAM3/Vocabulary/ORBvoc.txt ./cfg/ORB_SLAM3/RGB-D/Replica/office0.yaml ./cfg/gaussian_mapper/RGB-D/Replica/replica_rgbd.yaml ./data/Replica/office0 ./results
 ```
 
 
@@ -109,9 +104,21 @@ If you need to run GUI applications (like the viewer), make sure to:
 
 2. Set flags necessary to run GUI:
    ```bash
-   env -u LIBGL_ALWAYS_INDIRECT -u LIBGL_ALWAYS_SOFTWARE -u GALLIUM_DRIVER -u MESA_GL_VERSION_OVERRIDE -u MESA_GLSL_VERSION_OVERRIDE ./bin/view_result ./cfg/view_only/view_only.yaml ./cfg/view_only/camera_replica.yaml ./results/6181_shutdown/ply/point_cloud/iteration_6181/point_cloud.ply
-
+   env -u LIBGL_ALWAYS_INDIRECT -u LIBGL_ALWAYS_SOFTWARE -u GALLIUM_DRIVER -u MESA_GL_VERSION_OVERRIDE -u MESA_GLSL_VERSION_OVERRIDE \ 
+   ./bin/view_result \
+      ./cfg/view_only/view_only.yaml \
+      ./cfg/view_only/camera_replica.yaml \
+      ./results/6181_shutdown/ply/point_cloud/iteration_6181/point_cloud.ply
    ```
+
+   ```bash
+   env -u LIBGL_ALWAYS_INDIRECT -u LIBGL_ALWAYS_SOFTWARE -u GALLIUM_DRIVER -u MESA_GL_VERSION_OVERRIDE -u MESA_GLSL_VERSION_OVERRIDE ./bin/view_result ./cfg/view_only/view_only.yaml ./cfg/view_only/camera_replica.yaml ./results/6181_shutdown/ply/point_cloud/iteration_6181/point_cloud.ply
+   ```
+
+   ```bash
+   env -u LIBGL_ALWAYS_INDIRECT -u LIBGL_ALWAYS_SOFTWARE -u GALLIUM_DRIVER -u MESA_GL_VERSION_OVERRIDE -u MESA_GLSL_VERSION_OVERRIDE ./bin/replica_rgbd ./ORB-SLAM3/Vocabulary/ORBvoc.txt ./cfg/ORB_SLAM3/RGB-D/Replica/office0.yaml ./cfg/gaussian_mapper/RGB-D/Replica/replica_rgbd.yaml ./data/Replica/office0 ./results/office0
+   ```
+
 
 ## File Structure
 

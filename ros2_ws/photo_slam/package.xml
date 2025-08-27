@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypedef="xml"?>
+<package format="3">
+  <name>photo_slam</name>
+  <version>1.0.0</version>
+  <description>ROS2 package for Photo-SLAM: Real-time Simultaneous Localization and Mapping with Photorealistic Gaussian Splatting</description>
+
+  <maintainer email="photo-slam@example.com">Photo-SLAM Team</maintainer>
+  <license>GPL-3.0</license>
+
+  <url type="website">https://github.com/HuajianUP/Photo-SLAM</url>
+  <url type="bugtracker">https://github.com/HuajianUP/Photo-SLAM/issues</url>
+  <url type="repository">https://github.com/HuajianUP/Photo-SLAM</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ROS2 Dependencies -->
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>message_filters</depend>
+  <depend>cv_bridge</depend>
+  <depend>image_transport</depend>
+  <depend>camera_info_manager</depend>
+  <depend>std_srvs</depend>
+
+  <!-- OpenCV -->
+  <depend>libopencv-dev</depend>
+
+  <!-- Test dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
