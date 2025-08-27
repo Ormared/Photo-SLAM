@@ -1,0 +1,76 @@
+# Start from NVIDIA's L4T base image (JetPack 5.1.2, r35.4.1)
+FROM nvcr.io/nvidia/l4t-base:r35.4.1
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    wget \
+    unzip \
+    build-essential \
+    cmake \
+    sudo \
+    libeigen3-dev \
+    libboost-all-dev \
+    libjsoncpp-dev \
+    libopengl-dev \
+    mesa-utils \
+    mesa-common-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libglew-dev \
+    libglfw3-dev \
+    libglm-dev \
+    xvfb \
+    x11-utils \
+    python3-pip \
+    python3-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    curl \
+    zip \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libswresample-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Upgrade cmake to 3.26.4 (Jetson default is too old)
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.4/cmake-3.26.4-linux-aarch64.tar.gz -O cmake.tar.gz && \
+    tar -xzf cmake.tar.gz -C /usr/local --strip-components=1 && \
+    rm cmake.tar.gz
+
+# Build OpenCV 4.7.0 with contrib + CUDA
+RUN mkdir /opencv && cd /opencv && \
+    wget https://github.com/opencv/opencv/archive/refs/tags/4.7.0.zip -O opencv-4.7.0.zip && \
+    wget https://github.com/opencv/opencv_contrib/archive/refs/tags/4.7.0.zip -O opencv_contrib-4.7.0.zip && \
+    unzip opencv-4.7.0.zip && \
+    unzip opencv_contrib-4.7.0.zip && \
+    rm opencv-4.7.0.zip opencv_contrib-4.7.0.zip && \
+    mkdir /opencv/opencv-4.7.0/build && cd /opencv/opencv-4.7.0/build && \
+    cmake -DCMAKE_BUILD_TYPE=RELEASE \
+          -DCMAKE_INSTALL_PREFIX=/usr/local \
+          -DWITH_CUDA=ON \
+          -DWITH_CUDNN=ON \
+          -DOPENCV_DNN_CUDA=ON \
+          -DOPENCV_EXTRA_MODULES_PATH=/opencv/opencv_contrib-4.7.0/modules \
+          -D CMAKE_CUDA_ARCHITECTURES=87 .. && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig
+
+# Install LibTorch (Jetson aarch64 prebuilt)
+RUN cd / && \
+    wget https://developer.download.nvidia.com/compute/redist/jp/v51/pytorch/libtorch_2.0.0_nv23.05_aarch64.zip -O libtorch.zip && \
+    unzip libtorch.zip && rm libtorch.zip
+
+ENV Torch_DIR=/libtorch/share/cmake/Torch
+
+# Set working directory
+WORKDIR /workspace
+
+CMD ["/bin/bash"]
+
