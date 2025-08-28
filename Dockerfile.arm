@@ -1,5 +1,5 @@
 # Start from NVIDIA's L4T base image (JetPack 5.1.2, r35.4.1)
-FROM nvcr.io/nvidia/l4t-base:r35.4.1
+FROM nvcr.io/nvidia/l4t-base:35.4.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 
